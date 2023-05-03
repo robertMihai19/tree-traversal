@@ -112,4 +112,4 @@ class TestTree(unittest.TestCase):
         self.assertIsNone(self.tree._find(10, self.tree.root))
         found = self.tree._find(8, self.tree.root)
         self.assertIsNotNone(found)
-        self.assertEqual(found.data, 9)
+        self.assertEqual(found.data, 8)
