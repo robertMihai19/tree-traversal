@@ -1,19 +1,20 @@
+import unittest
 from node import Node
 
 
 class Tree:
-    """ Tree class for binary tree """
+    """Tree class for binary tree"""
 
     def __init__(self):
-        """ Constructor for Tree class """
+        """Constructor for Tree class"""
         self.root = None
 
     def getRoot(self):
-        """ Method for get root of the tree """
+        """Method for get root of the tree"""
         return self.root
 
     def add(self, data):
-        """ Method for add data to the tree """
+        """Method for add data to the tree"""
         if self.root is None:
             self.root = Node(data)
         else:
@@ -56,9 +57,9 @@ class Tree:
     def _find(self, data, node):
         if data == node.data:
             return node
-        elif (data < node.data and node.left is not None):
+        elif data < node.data and node.left is not None:
             return self._find(data, node.left)
-        elif (data > node.data and node.right is not None):
+        elif data > node.data and node.right is not None:
             return self._find(data, node.right)
 
     def deleteTree(self):
@@ -66,23 +67,49 @@ class Tree:
         self.root = None
 
     def printTree(self):
+        """
         # TODO 1
+        """
+
         if self.root is not None:
             self._printInorderTree(self.root)
 
     def _printInorderTree(self, node):
+        """
         # TODO 1
+        """
+
         if node is not None:
             self._printInorderTree(node.left)
-            print(str(node.data) + ' ')
+            print(str(node.data) + " ")
             self._printInorderTree(node.right)
 
     def _printPreorderTree(self, node):
         # TODO 2
-        pass
+        if node:
+            print(node.data)
+            self._printPreorderTree(node.left)
+            self._printPreorderTree(node.right)
 
     def _printPostorderTree(self, node):
         # TODO 2
-        pass
+        if node:
+            self._printPostorderTree(node.left)
+            self._printPostorderTree(node.right)
+            print(node.data)
 
 
+class TestTree(unittest.TestCase):
+    def setUp(self) -> None:
+        self.tree = Tree()
+        self.tree.add(3)
+        self.tree.add(4)
+        self.tree.add(0)
+        self.tree.add(8)
+        self.tree.add(2)
+
+    def test_find(self):
+        self.assertIsNone(self.tree._find(10, self.tree.root))
+        found = self.tree._find(8, self.tree.root)
+        self.assertIsNotNone(found)
+        self.assertEqual(found.data, 8)
